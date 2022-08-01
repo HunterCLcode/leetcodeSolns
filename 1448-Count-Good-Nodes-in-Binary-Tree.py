@@ -1,4 +1,3 @@
-# Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
@@ -6,11 +5,10 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        def goodNodesRecur(node, arr):
+        def goodNodesRecur(node, val):
             if not node: return 0
-            arr.append(node.val)
-            res = 1 if node.val == max(arr) else 0
-            res += goodNodesRecur(node.left,arr[:]) + goodNodesRecur(node.right,arr[:])
-            return res
+            val = max(val, node.val)
+            res = 1 if node.val == val else 0
+            return res + goodNodesRecur(node.left, val) + goodNodesRecur(node.right,val)
         
-        return goodNodesRecur(root, [])
+        return goodNodesRecur(root, -10000)
